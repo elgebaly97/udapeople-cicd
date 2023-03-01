@@ -233,7 +233,7 @@ jobs:
             fi
       - destroy-environment
       - revert-migrations
-     # Here's where you will add some code to rollback on fa   
+     # Here's where you will add some code to rollback on    
 
 #   deploy-frontend:
 #     docker:
