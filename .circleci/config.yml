@@ -218,24 +218,19 @@ jobs:
     steps:
       - checkout
       - install_awscli
-      - install_nodejs
-      - restore_cache:
-          keys: ['backend-deps-{{ checksum "backend/package-lock.json" }}']
       - run:
           name: Run migrations
           command: |
             cd backend
             npm install
             npm run migrations > migrations_dump.txt
-            cat migrations_dump.txt
+            npm audit fix
       - run:
           name: Send migration results to kvdb
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
               curl https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
-            else
-              echo "No migrations are pending" 
             fi
       - destroy-environment
       - revert-migrations
