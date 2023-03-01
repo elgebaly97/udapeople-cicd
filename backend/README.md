@@ -140,7 +140,7 @@ To revert the last applied migration:
 npm run migrations:revert
 ```
 
-## DB Setup
+## DB Setup to
 
 You need to add some environment variables to your system in order to run migrations or the backend. For convenience, you can also create a `.env` file to represent your environment. Here's the format:
 
