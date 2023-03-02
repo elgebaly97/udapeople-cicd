@@ -150,7 +150,7 @@ TYPEORM_HOST=localhost
 TYPEORM_PORT=5432
 TYPEORM_USERNAME=postgres
 TYPEORM_PASSWORD=password
-TYPEORM_DATABASE=glee2
+TYPEORM_DATABASE=glee
 TYPEORM_MIGRATIONS=./src/migrations/*.ts
 TYPEORM_ENTITIES=./src/modules/**/*.entity.ts
 ```
@@ -166,7 +166,7 @@ Authentication has been applied to all endpoints, so it's not necessary to speci
 ```
 AUTH0_CLIENT_SECRET= <id placeholder, check trello card on OIW board in resources lane>
 AUTH0_CLIENT_ID= <id placeholder, check trello card on OIW board in resources lane>
-AUTH0_DOMAIN=glee2-dev.auth0.com
+AUTH0_DOMAIN=glee-dev.auth0.com
 AUTH0_AUDIENCE=http://localhost:3030
 ```
 
