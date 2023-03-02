@@ -63,7 +63,7 @@ $ npm run prettier
 
 MIT
 
-# Glee-Specific Config
+# glee-Specific Config
 
 ## Connecting to Backend
 

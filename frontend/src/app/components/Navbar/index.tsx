@@ -80,7 +80,7 @@ export class Navbar extends React.Component<Navbar.Props, Navbar.State> {
           <div className={style['g-applogo']}>
             <h1 className={style.logoimage}>
               <a href="#" aria-label="Home page">
-                <span>Glee</span>
+                <span>glee</span>
               </a>
             </h1>
           </div>
