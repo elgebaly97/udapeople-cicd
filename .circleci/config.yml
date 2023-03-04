@@ -257,9 +257,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/
       - install_awscli
+      - install_ansible
       - install_nodejs
       - restore_cache:
           keys: [frontend-deps]
@@ -296,10 +295,10 @@ jobs:
       - install_ansible
       - install_awscli
       - install_nodejs
-      - add_ssh_keys:
-          fingerprints: ["7f:d0:f4:e5:2f:b2:c9:72:a6:11:a3:d0:51:e7:4c:4b"]
       - attach_workspace:
           at: ~/
+      - add_ssh_keys:
+          fingerprints: ["7f:d0:f4:e5:2f:b2:c9:72:a6:11:a3:d0:51:e7:4c:4b"]
       - restore_cache:
           keys: [backend-deps]
       - run:
@@ -318,10 +317,13 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            export TYPEORM_MIGRATIONS_DIR=./migrations
-            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
-            export TYPEORM_MIGRATIONS=./migrations/*.ts
+            cd backend
+            export TYPEORM_MIGRATIONS_DIR=./src/migrations
+            export TYPEORM_ENTITIES=./src/modules/domain/**/*.entity{.ts,.js}
+            export TYPEORM_MIGRATIONS=./src/migrations/*.ts
+            cd ..
             cd .circleci/ansible
+            echo "Conetents of the Inventory file is ......"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment
