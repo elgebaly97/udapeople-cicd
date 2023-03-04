@@ -269,19 +269,18 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --query 'Reservations[].Instances[].PublicIpAddress' --output text)
-            export API_URL="http://${BACKEND_IP}:3030"
-            echo "API_URL = ${API_URL}"
-            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
+            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
+            --filters "Name=tag:Name,Values=backend-<IDENTIFIER>" \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text)
+            echo "API_URL=http://${BACKEND_PUBLIC_IP}:3030" > frontend/.env
             cat frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
             cd frontend
-            npm install
             npm run build
-            tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
-            aws s3 cp dist s3://udapeople-db-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - destroy-environment      
       - revert-migrations
 #       # Here's where you will add some code to rollback on failure      
@@ -291,22 +290,22 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      - install_ansible
       - install_awscli
+      - install_ansible
       - install_nodejs
       - add_ssh_keys:
-          fingerprints: ["ea:bf:d3:de:9c:e9:1e:f5:be:ef:b6:6a:f2:ce:da:6c"]
+          fingerprints: ["71:1a:a4:0a:b5:d1:b9:8a:e3:09:fb:be:36:b3:9d:91"]
       - attach_workspace:
           at: ~/
       - restore_cache:
-          keys: [backend-deps]
+          keys: ['backend-deps-{{ checksum "backend/package-lock.json" }}']
       - run:
           name: Install dependencies
           command: |
             cd backend
             npm install
       - run:
-          name: Package Backend
+          name: package backend
           command: |
             cd backend
             npm run build
