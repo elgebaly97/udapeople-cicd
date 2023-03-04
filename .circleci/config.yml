@@ -297,7 +297,7 @@ jobs:
       - install_awscli
       - install_nodejs
       - add_ssh_keys:
-          fingerprints: ["ea:bf:d3:de:9c:e9:1e:f5:be:ef:b6:6a:f2:ce:da:6c"]
+          fingerprints: ["7f:d0:f4:e5:2f:b2:c9:72:a6:11:a3:d0:51:e7:4c:4b"]
       - attach_workspace:
           at: ~/
       - restore_cache:
