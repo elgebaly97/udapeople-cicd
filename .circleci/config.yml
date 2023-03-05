@@ -390,8 +390,9 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
-      - install_awscli
       - checkout
+      - install_awscli
+      - install_nodejs
       - run:
           name: save OLD_WORKFLOW to kvdb.io
           command: |
