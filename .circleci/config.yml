@@ -448,7 +448,7 @@ jobs:
   #             aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
   #             aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
   #           else
-  #             echo "--Nothing to Delete or Can't Delete--"
+  #             echo "-Nothing to Delete or Can't Delete--"
   #           fi
   cleanup: 
     docker:
