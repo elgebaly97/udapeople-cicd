@@ -267,7 +267,7 @@ jobs:
             fi
       - destroy-environment
       - revert-migrations
-     # Here's where you will add some code to rollback   
+     # Here's where you will add some code to roll 
 
   deploy-frontend:
     docker:
