@@ -267,7 +267,7 @@ jobs:
             fi
       - destroy-environment
       - revert-migrations
-     # Here's where you will add some code to roll 
+     # Here's where you will add some cod
 
   deploy-frontend:
     docker:
