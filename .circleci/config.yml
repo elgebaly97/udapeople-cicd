@@ -487,7 +487,7 @@ jobs:
       - run:
           name: Remove old stacks and files
           command: |
-            OLD_WORKFLOW_ID=$(cat ~/OLD_WORKFLOW_ID.txt)
+            OLD_WORKFLOW_ID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/old_workflow_id)
             echo OLD_WORKFLOW_ID: "${OLD_WORKFLOW_ID}"
             echo Current_CIRCLE_WORKFLOW_ID: "${CIRCLE_WORKFLOW_ID:0:7}"
           
