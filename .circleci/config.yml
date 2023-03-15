@@ -488,19 +488,19 @@ jobs:
           name: Remove old stacks and files
           command: |
             OLD_WORKFLOW_ID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/old_workflow_id)
-            echo OLD_WORKFLOW_ID: "${OLD_WORKFLOW_ID}"
+            echo OLD_WORKFLOW_ID: "${OLD_WORKFLOW_ID:0:7}"
             echo Current_CIRCLE_WORKFLOW_ID: "${CIRCLE_WORKFLOW_ID:0:7}"
           
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
             --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
             echo Stack names: "${STACKS[@]}"       
               
-            if [[ "${STACKS[@]}" =~ "${OLD_WORKFLOW_ID}" ]]
+            if [[ "${STACKS[@]}" =~ "${OLD_WORKFLOW_ID:0:7}" ]]
             then
               echo "Success"
-              aws cloudformation delete-stack --stack-name "udapeople-backend-${OLD_WORKFLOW_ID}"
-              aws s3 rm s3://udapeople-${OLD_WORKFLOW_ID} --recursive
-              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OLD_WORKFLOW_ID}"
+              aws s3 rm s3://udapeople-${OLD_WORKFLOW_ID:0:7} --recursive
+              aws cloudformation delete-stack --stack-name "udapeople-backend-${OLD_WORKFLOW_ID:0:7}"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OLD_WORKFLOW_ID:0:7}"
             else
               echo "Failed or Nothing to Delete"
             fi
