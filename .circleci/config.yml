@@ -495,12 +495,12 @@ jobs:
             --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
             echo Stack names: "${STACKS[@]}"       
               
-            if [[ "${STACKS[@]}" =~ "${OLD_WORKFLOW_ID:0:7}" ]]
+            if [[ "${STACKS[@]}" =~ "${OLD_WORKFLOW_ID: -7}" ]]
             then
               echo "Success"
-              aws s3 rm s3://udapeople-${OLD_WORKFLOW_ID:0:7} --recursive
-              aws cloudformation delete-stack --stack-name "udapeople-backend-${OLD_WORKFLOW_ID:0:7}"
-              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OLD_WORKFLOW_ID:0:7}"
+              aws s3 rm s3://udapeople-${OLD_WORKFLOW_ID: -7} --recursive
+              aws cloudformation delete-stack --stack-name "udapeople-backend-${OLD_WORKFLOW_ID: -7}"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OLD_WORKFLOW_ID: -7}"
             else
               echo "Failed or Nothing to Delete"
             fi
