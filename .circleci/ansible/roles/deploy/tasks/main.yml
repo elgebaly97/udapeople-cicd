@@ -1,6 +1,6 @@
 ---
-- name: "Creates backend app directory"
-  file:
+- name: "create backend app directory"
+  file: 
     path: ~/backend-app
     state: directory
 
@@ -12,16 +12,16 @@
 - name: "Installing Node Dependencies"
   shell: |
     cd ~/backend-app
-    npm install
+    npm i
 - name: "Executing Node app with PM2"
   shell: |
     cd ~/backend-app/dist
-    pm2 stop default
+    pm2 stop default 
     pm2 start main.js
   register: execute_node
 
 - name: print message
-  debug:
+  debug: 
     msg: "{{ execute_node.stdout_lines }}"
 
 - name: "Configure pm2 to start as service"
